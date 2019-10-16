@@ -1,60 +1,130 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Test_Stack
+
+namespace stack
 {
     class Stack
     {
+        static int MAX = 1000;  //static data member , 전역변수 , static 영역에 저장됨
+
         //data member
-        int[] s = new int[10];
-        public int top;
-
-        //member function
-        public void push(int i)
+        private int[] s = new int[MAX];
+        private int top;
+        private int size;
+        
+        public Stack(int n)
         {
-
-            this.top = this.top + 1; //java, c#, c++ 에서 this 생략가능
-            s[top] = i;
+            top = -1;
+            size = n;
         }
-
+                
+        public Stack() //constructor 생성자, 객체를 만들때 초기화 용으로 사용 , 자동호출 , default constructor
+        {
+            Console.WriteLine("Hello");
+            size = MAX;
+            top = -1;
+        }
+        
+        public void overflowError()
+        {
+            Console.WriteLine("Stack overflow occurs!!");
+            Environment.Exit(-1);
+        }
+                
+        public void emptyerror()
+        {
+            Console.WriteLine("Stack empty error occurs!!");
+            Environment.Exit(-1);
+        }
+               
+        //member function..
+        public void push(int x)
+        {
+            if (top >= size - 1) overflowError();   //overflow
+            this.top = this.top + 1;
+            this.s[this.top] = x;
+        }
+        
         public int pop()
         {
+            if (top == -1) emptyerror();
+            top--;
 
-            this.top = this.top - 1;
             return s[top + 1];
         }
+        
+        public int peek()
+        {
+            if (top == -1) emptyerror();
+            return s[top];
+        }
+        
+        public bool isEmpty()
+        {
+            if (top == -1) return true;
+            return false;
+        }
 
+        public int count()
+        {
+            return top + 1;
+        }
+        
+        //housekeeping function
+        private void initialize()
+        {
+            for (int i = 0; i < MAX; i++)
+            {
+                s[i] = 0;
+            }
+        }
+
+        public void reset()
+        {
+            initialize();
+            top = -1;
+        }
     }
+       
     class Program
     {
         static void Main(string[] args)
         {
-            int x;
+            Stack a = new Stack(10);  //객체를 생성한다 
+            Stack b = new Stack(50);  // object instantiation
 
-            Stack p1;
-            Stack p2;
-            Stack p3;
 
-            p1 = new Stack(); //type casting
-            p2 = new Stack();
-            p3 = new Stack();
 
-            p1.top = -1;
-            p2.top = -1;
-            p3.top = -1;
+            a.push(10);     //message sending
+            a.push(20);
 
-            p1.push(8);
-            p1.push(9);
-            p1.push(3);
-            x = p1.pop();
-            x = p1.pop();
-            Console.WriteLine(x);
+            int x = a.pop();
 
-            p2.push(100);
-            p2.push(300);
-            x = p2.pop();
-            x = p2.pop();
-            Console.WriteLine(x);
+            a.push(30);
+            a.push(40);
 
+
+
+            x = a.peek(); //stack 맨 끝에 뭐있는지 알려줌
+
+            a.reset();
+
+            int n = a.count();
+
+            a.push(1000);
+
+            b.push(100);
+            b.push(200);
+            b.push(300);
+            b.push(400);
+            int y = b.pop();
+
+            bool z = b.isEmpty();
+            Console.WriteLine(x + "," + y + "," + z + "," + n);
         }
     }
 }
