@@ -25,9 +25,32 @@ namespace csharp2
     {
         public Node head;
 
-        public void insertAt(int x, int a)
+        public void del(int pos)
         {
-
+            int count = 0;
+            Node tmp;
+            tmp = head;
+            for(int i = 0; i < pos; i ++)
+            {
+                tmp = tmp.next;
+                count++;
+            }
+            tmp.next = tmp.next.next;
+        }
+        public void insertAt(int pos, int value)
+        {
+            int count = 0;
+            Node tmp;
+            Node tmp2;
+            tmp = head;
+            for (int i = 0; i < pos; i++)
+            {
+                tmp = tmp.next;
+                count++;
+            }
+            tmp2 = new Node(value);
+            tmp2.next = tmp.next;
+            tmp.next = tmp2;
         }
         public void addHead(int x)
         {
@@ -89,11 +112,8 @@ namespace csharp2
             LinkedList list = new LinkedList();
 
             list.addTail(7);
-
             list.addTail(4);
-
             list.addTail(6);
-
             list.addTail(2);
 
             list.print();
@@ -108,6 +128,7 @@ namespace csharp2
             list.head.next.next = x;
 
             list.print();
+
             list.addTail(3);
 
             list.print();
@@ -115,7 +136,15 @@ namespace csharp2
             list.addHead(9);
 
             list.print();
+
             list.insertAt(3, 10);
+
+            list.print();
+
+            list.del(3);
+
+            list.print();
+
         }
     }
 }
