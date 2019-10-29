@@ -1,9 +1,6 @@
-﻿
-
-//문제 4. 다음 프로그램의 출력을 쓰시오.
+﻿//문제 4. 다음 프로그램의 출력을 쓰시오.
 
 using System;
-using System.Linq;
 
 namespace Test4
 {
@@ -11,29 +8,41 @@ namespace Test4
     {
         static void Main(string[] args)
         {
-            int[] data = { 1, 2, 3, 4, 5 };
-            char[] separator = new char[data.Length + 1];
+            int[] data = { 6, 1, 4, 2, 8 };
             String s = "";
-            s = s + "바보X";
 
+            s = s + "XY";
             for (int i = 0; i < data.Length; i++)
             {
-                separator[i] = (char)('0' + i * 2 + 1); // '0'는 숫자 zero 문자상수임
-                for (int j = 0; j < data[i]; j++)
-                {
-                    s = s + data[i];
-                }
+                s = s + data[i] + "X";
             }
-            separator[data.Length] = 'X';
-            s = s + "X바보";
-            s = s.Replace("바보", "천재");
-            String[] ans = s.Split(separator);
-            for (int i = 0; i < ans.Length; i++)
+            for (int i = data.Length - 1; i >= 0; i--)
             {
-                if ((i == 0) || (i == ans.Length - 1)) Console.Write(ans[i]);
-                else if (ans[i].Length > 0) Console.Write(ans[i].ElementAt(0));
+                s = s + data[i] + "Y";
             }
-            Console.WriteLine();
+            s = s + "YX";
+
+            s = s.Replace('X', ' ');
+            s = s.Replace('Y', ' ');
+
+            s = s.Trim();
+
+            // Substring(int startIndex,int length)
+            // startIndex: 시작위치, length:길이
+            s = s.Substring(6, 7);
+
+            char[] separator = new char[1];
+            separator[0] = ' ';
+
+            String[] result = s.Split(separator);
+
+            int sum = 0;
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                sum = sum + int.Parse(result[i]);
+            }
+            Console.WriteLine(sum);
         }
     }
 }
